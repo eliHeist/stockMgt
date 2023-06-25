@@ -1,0 +1,63 @@
+{% extends 'orders/base.html' %} {% load static tailwind_filters %}
+
+
+{% block content %}
+<div>
+    <!-- component -->
+    <div class="overflow-x-auto">
+        <div class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
+            <div class="w-full lg:w-5/6">
+                <div class="flex py-2">
+                    <a href="{% url 'orders:order-list' %}" class="text-blue-600 font-medium">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to orders list
+                    </a>
+                </div>
+                <div class="bg-grey-50 shadow-md rounded-xl my-6 p-8">
+                    <form method="post" class=" accent-cyan-500">
+                        {% csrf_token %}
+                        <div class="form mb-8">
+                            {{ form|crispy }}
+                        </div>
+                        <div class="datalist">
+                            <datalist id="product_datalist">
+                                {% for prod in products %}
+                                <option value="{{ prod.id }}" label="{{ prod.brand }} {{ prod.name }}"></option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                        <div class="p-4">
+                            <p>Items</p>
+                        </div>
+                        {{ orderitem_formset.management_form }}
+                        <div id="batch-formset" class="grid gap-8">
+                            {% for form in orderitem_formset %}
+                            <div class="batch-form grid border p-4">
+                                <div class="">{{ form|crispy }}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex gap-4 mt-8">
+                            <button type="submit" class="py-2 px-4 bg-cyan-500 rounded-xl">
+                                <i class="fas fa-cloud-arrow-up mr-2"></i>Confirm Order
+                            </button>
+                            <button type="button" id="add-batch-btn">
+                                <i class="far fa-square-plus mr-2"></i>Add item
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    stock_create_page = true
+    const innerHtml = `<div class="">{{ orderitem_formset.empty_form|crispy }}</div><button title="Remove item"
+        type="button" class="delete-batch-btn"><i class="far fa-square-minus text-red-600"></i></button>`
+</script>
+{% endblock scripts %}

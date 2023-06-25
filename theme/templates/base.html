@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block slot %}
+<body class=" bg-grey-100">
+	<!-- component -->
+	{% include 'base_components/sidebar.html' %}
+	<div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+		{% block slot2 %}{% endblock slot2 %}
+	</div>
+	<script>
+		let stock_create_page = false
+	</script>
+	{% block scriptslot %}{% endblock scriptslot %}
+	<script>
+		document.querySelector(active_selector).classList.add('active-link')
+	</script>
+	<script src="{% static 'js/main.js' %}" defer></script>
+</body>
+{% endblock slot %}

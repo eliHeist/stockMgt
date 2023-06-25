@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@mixin sm{
+    @media (max-width: 640px){
+        @content;
+    }
+}
+@mixin md{
+    @media (max-width: 768px){
+        @content;
+    }
+}
+@mixin lg{
+    @media (max-width: 1024px){
+        @content;
+    }
+}
+@mixin xl{
+    @media (max-width: 1280px){
+        @content;
+    }
+}
+@mixin xl2{
+    @media (max-width: 1536px){
+        @content;
+    }
+}
+
+.active-link{
+    @apply relative rounded-xl text-white bg-gradient-to-r from-sky-600 to-cyan-400;
+}
